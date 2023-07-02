@@ -36,10 +36,10 @@ def make_new_file(filepath, shortname_map, field_names=["trip_short_name"]):
     with open(filepath, "rb") as file_raw:
         trips_txt = io.TextIOWrapper(file_raw)
         csvfile = csv.DictReader(trips_txt)
+        file_name = 'trips2.txt'
         if os.path.exists(file_name):
             print(COLOR_RED + "File with name " + file_name + " already exists in directory; cannot create a new one. Move this file and try again. Skipping..." + COLOR_RESET)
             return
-        file_name = 'trips2.txt'
         new_file = open(file_name, "w")
         new_csv_writer = csv.DictWriter(new_file, fieldnames=csvfile.fieldnames)
         new_csv_writer.writeheader()
