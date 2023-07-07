@@ -31,7 +31,7 @@ def make_new_file(filepath):
                 return
             if not row["trip_short_name"]:
                 print(COLOR_RED + "Missing trips_short_name value(s). Operation was completed, but ensure this is expected before proceeding." + COLOR_RESET)
-        file_name = "trips2.txt"
+        file_name = "trips_syncro.txt"
         if os.path.exists(file_name):
             print(COLOR_RED + "File with name " + file_name + " already exists in directory; cannot create a new one. Move this file and try again." + COLOR_RESET)
             return
