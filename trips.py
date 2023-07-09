@@ -15,9 +15,6 @@ def convert_trip_names():
     if not os.path.isfile(filepath):
         print(COLOR_RED + "Input is not a file! Please input trips.txt." + COLOR_RESET)
         exit()
-    if not os.path.basename(filepath) == "trips.txt":
-        print(COLOR_RED + "Incorrect file input! Please input trips.txt." + COLOR_RESET)
-        exit()
     make_new_file(filepath)
 
 def make_new_file(filepath):
@@ -25,12 +22,13 @@ def make_new_file(filepath):
         trips_txt = io.TextIOWrapper(file_raw)
         csv_file = csv.DictReader(trips_txt)
         csv_list = list(csv_file)
-        for row in csv_list:
-            if "trip_short_name" not in row: 
-                print(COLOR_RED + "No trip_short_name column detected. The operation cannot be performed. Review the file and try again." + COLOR_RESET)
+        if "trip_short_name" not in csv_file.fieldnames: 
+                print(COLOR_RED + "No trip_short_name column detected. The operation cannot be performed." + COLOR_RESET)
                 return
+        for row in csv_list:
             if not row["trip_short_name"]:
-                print(COLOR_RED + "Missing trips_short_name value(s). Operation was completed, but ensure this is expected before proceeding." + COLOR_RESET)
+                print(COLOR_RED + "Input file missing trips_short_name value(s). Operation was completed, but ensure this is expected before proceeding." + COLOR_RESET)
+                break
         file_name = "trips_syncro.txt"
         if os.path.exists(file_name):
             print(COLOR_RED + "File with name " + file_name + " already exists in directory; cannot create a new one. Move this file and try again." + COLOR_RESET)
