@@ -25,14 +25,14 @@ def make_new_file(filepath):
         if "trip_short_name" not in csv_file.fieldnames: 
                 print(COLOR_RED + "No trip_short_name column detected. The operation cannot be performed." + COLOR_RESET)
                 return
-        for row in csv_list:
-            if not row["trip_short_name"]:
-                print(COLOR_RED + "Input file missing trips_short_name value(s). Operation was completed, but ensure this is expected before proceeding." + COLOR_RESET)
-                break
         file_name = "trips_syncro.txt"
         if os.path.exists(file_name):
             print(COLOR_RED + "File with name " + file_name + " already exists in directory; cannot create a new one. Move this file and try again." + COLOR_RESET)
             return
+        for row in csv_list:
+            if not row["trip_short_name"]:
+                print(COLOR_RED + "Input file missing trips_short_name value(s). Operation was completed, but ensure this is expected before proceeding." + COLOR_RESET)
+                break
         new_file = open(file_name, "w")
         new_csv_writer = csv.DictWriter(new_file, fieldnames=csv_file.fieldnames)
         new_csv_writer.writeheader()
